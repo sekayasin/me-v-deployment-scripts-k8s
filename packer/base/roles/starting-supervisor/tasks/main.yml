@@ -1,0 +1,5 @@
+- name: Starting supervisor service
+  service:
+    name: supervisor
+    enabled: yes
+    state: started

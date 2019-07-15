@@ -1,0 +1,53 @@
+- name: Add the user 'vof'
+  user:
+    name: vof
+    shell: /bin/bash
+
+- name: change /home/vof directory owner
+  file:
+    path: /home/vof
+    owner: vof
+
+- name: start supervisor
+  service:
+    name: supervisor
+    state: started
+
+- name: Download ssh private key
+  command: |
+    gsutil cp gs://{{ bucket_name }}/ssh/vof_tracker_key /home/vof/.ssh/vof_tracker_key
+
+- name: Download ssh public key
+  command: gsutil cp gs://{{ bucket_name }}/ssh/vof_tracker_key.pub /home/vof/.ssh/vof_tracker_key.pub
+
+- name: change private ssh key permissions
+  file:
+    path: /home/vof/.ssh/vof_tracker_key
+    mode: 0600
+
+- name: change public ssh key permissions
+  file:
+    path: /home/vof/.ssh/vof_tracker_key.pub
+    mode: 0644
+
+- name: change vof_tracker_key file owner
+  file:
+    path: /home/vof/.ssh/vof_tracker_key
+    owner: vof
+
+- name: change vof_tracker_key.pub file owner
+  file:
+    path: /home/vof/.ssh/vof_tracker_key.pub
+    owner: vof
+
+- name: clone repository
+  git:
+    repo: 'git@github.com:andela/vof-tracker.git'
+    dest: /home/vof/app
+    accept_hostkey: yes
+    key_file: /home/vof/.ssh/vof_tracker_key
+
+- name: change app folder permissions
+  file:
+    path: /home/vof/app
+    mode: 0777

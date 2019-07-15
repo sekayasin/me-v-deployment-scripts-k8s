@@ -1,0 +1,19 @@
+- name: Deleting ruby installer
+  file:
+    path: /home/vof/ruby-2.4.1/
+    state: absent
+
+- name: Deleting rubygems installer
+  file:
+    path: /home/vof/rubygems-2.6.12/
+    state: absent
+
+- name: Deleting temporary ansible folder
+  file:
+    path: '/home/vof/~*'
+    state: absent
+
+- name: Deleting logging agent install script
+  file:
+    path: /home/vof/install-logging-agent.sh
+    state: absent

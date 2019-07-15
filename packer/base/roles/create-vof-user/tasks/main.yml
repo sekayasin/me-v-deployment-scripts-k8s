@@ -1,0 +1,4 @@
+-  name: Add the user 'vof' with a bash shell
+   user:
+    name: vof
+    shell: /bin/bash

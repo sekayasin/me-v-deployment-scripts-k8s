@@ -1,0 +1,6 @@
+- name: Installing system dependencies
+  apt:
+    update-cache: yes
+    name: "{{ packages }}"
+    state: present
+    install-recommends: no

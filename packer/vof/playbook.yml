@@ -1,0 +1,16 @@
+- name: Setup VOF base image
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+  gather_facts: no
+  vars:
+    ansible_python_interpreter: '/usr/bin/python3'
+    vof_path: '{{lookup("env", "vof_path")}}'
+    bucket_name: '{{lookup("env", "bucket_name")}}'
+    service_account_json: '{{lookup("env", "service_account_json")}}'
+  roles:
+    - setup
+    - copy-files
+    - setup-metricbeat
+    - setup-filebeat
+    - setup-fluentd

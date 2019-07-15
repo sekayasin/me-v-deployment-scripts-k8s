@@ -1,0 +1,10 @@
+- name: Copy metricbeat configuration
+  copy:
+    src: templates/metricbeat.yml
+    dest: /etc/metricbeat/metricbeat.yml
+
+- name: Start and enable metricbeat
+  systemd:
+    state: started
+    name: metricbeat
+    enabled: yes

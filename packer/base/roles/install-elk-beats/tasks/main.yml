@@ -1,0 +1,9 @@
+- name: Downloading and installing metricbeat
+  apt:
+    deb: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-6.2.4-amd64.deb
+    update_cache: yes
+
+- name: Downloading and installing filebeat
+  apt:
+    deb: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.2.4-amd64.deb
+    update_cache: yes

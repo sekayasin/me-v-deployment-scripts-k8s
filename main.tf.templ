@@ -1,0 +1,30 @@
+module "gke" {
+  source          = "./gke"
+  project         = "$(project)"
+  region          = "$(region)"
+  zone            = "$(zone)"
+  bucket          = "$(bucket)"
+  prefix          = "$(prefix)"
+  environment     = "$(environment)"
+  credentials     = "$(credentials)"
+  machine_type    = "$(machine_type)"
+}
+
+module "k8s" {
+  source              = "./k8s/terraform"
+  region              = "$(region)"
+  project             = "$(project)"
+  namespace           = "$(namespace)"
+  deployment_name     = "$(deployment_name)"
+  deployment_port     = "$(deployment_port)"
+  vof_tracker_image   = "$(vof_tracker_image)"
+  database_name       = "$(database_name)"
+  database_user       = "$(database_user)"
+  pgpassword          = "$(pgpassword)"
+  db_password         = "$(db_password)"
+  database_tier       = "$(database_tier)"
+  database_version    = "$(database_version)"
+  db_instance_name    = "$(db_instance_name)"
+  regional_static_ip  = "$(regional_static_ip)"
+  vof_domain_name     = "$(vof_domain_name)"
+}

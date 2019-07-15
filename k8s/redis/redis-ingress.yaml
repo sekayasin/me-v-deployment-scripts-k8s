@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vof-redis
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    nginx.ingress.kubernetes.io/force-ssl-redirect: 'false'
+spec:
+  rules:
+    - host: apprenticeship-redis.andela.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: redis-service
+              servicePort: server-port

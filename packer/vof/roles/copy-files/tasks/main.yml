@@ -1,0 +1,29 @@
+- name: copy service account json file to home/vof directory
+  copy:
+    src: '{{ service_account_json }}'
+    dest: /home/vof/
+
+- name: copy start_vof script to home/vof directory
+  copy:
+    src: start_vof.sh
+    dest: /home/vof
+
+- name: copy backup script to home/vof directory
+  copy:
+    src: backup.sh
+    dest: /home/vof
+
+- name: copy post backup to slack script to home/vof directory
+  copy:
+    src: post_backup_to_slack.sh
+    dest: /home/vof
+
+- name: copy delete images script to home/vof directory
+  copy:
+    src: delete_images.sh
+    dest: /home/vof
+
+- name: copy downtime script to home/vof directory
+  copy:
+    src: downtime.sh
+    dest: /home/vof

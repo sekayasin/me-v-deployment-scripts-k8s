@@ -1,0 +1,3 @@
+bucket="name-of-bucket"
+prefix="prefix"
+credentials="path-to-your-service-account-key" 

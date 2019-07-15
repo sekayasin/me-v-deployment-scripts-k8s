@@ -1,0 +1,4 @@
+- name: add development logs conf file
+  copy:
+    src: templates/setup_fluentd.sh
+    dest: /home/vof

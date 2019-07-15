@@ -1,0 +1,31 @@
+{
+  "variables": {
+    "service_account_json": "../../shared/account.json",
+    "vof_path": "{{env `VOF_PATH`}}",
+    "env_name": "{{env `RAILS_ENV`}}",
+    "project_id": "{{env `PROJECT_ID`}}",
+    "bucket_name": "{{env `BUCKET_NAME`}}"
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "project_id": "{{user `project_id`}}",
+      "machine_type": "n1-standard-1",
+      "source_image": "vof-base-image-ruby",
+      "region": "europe-west1",
+      "zone": "europe-west1-b",
+      "ssh_username": "vof",
+      "image_description": "vof image for ruby on rails application",
+      "image_family": "ubuntu-1604-lts",
+      "image_name": "{{user `env_name`}}-vof-image-ruby-{{timestamp}}",
+      "disk_size": 10,
+      "account_file": "{{ user `service_account_json`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "./playbook.yml"
+    }
+  ]
+}

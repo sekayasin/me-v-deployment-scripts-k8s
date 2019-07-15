@@ -1,0 +1,38 @@
+- name: Changing ownership group and permissions for /usr/local
+  file:
+    path: /usr/local
+    recurse: yes
+    group: vof
+    mode: "g+rw"
+
+- name: Downloading and extracting Ruby 2.4.1 installer archive
+  unarchive:
+    src: https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.1.tar.gz
+    creates: /home/vof/ruby-2.4.1.tar.gz
+    dest: /home/vof
+    validate_certs: no
+    remote_src: yes
+
+- name: Installing Ruby
+  shell:
+    chdir: ruby-2.4.1
+    cmd: |
+      ./configure
+      make && make install
+
+- name: Downloading and extracting rubygems 2.6.12 installer archive
+  unarchive:
+    src: https://rubygems.org/rubygems/rubygems-2.6.12.tgz
+    creates: /home/vof/rubygems-2.6.12
+    dest: /home/vof
+    remote_src: yes
+    validate_certs: no
+
+- name: Installing required gems
+  shell: |
+    pushd rubygems-2.6.12
+      ruby setup.rb
+    popd
+
+    gem install bundler --no-ri --no-rdoc
+    gem install stackdriver --no-ri --no-rdoc

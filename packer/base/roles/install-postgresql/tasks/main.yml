@@ -1,0 +1,16 @@
+- name: Adding PostgreSQL private apt repository
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main
+    update_cache: yes
+
+- name: Adding PostgreSQL repo apt-key
+  apt_key:
+    id: ACCC4CF8
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
+- name: Installing PostgreSQL 9.6 and PostgreSQL Contrib Tools
+  apt:
+    update_cache: yes
+    name: ['postgresql-9.6', 'postgresql-contrib']
+    state: present

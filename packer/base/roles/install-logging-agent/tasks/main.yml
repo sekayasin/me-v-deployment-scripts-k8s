@@ -1,0 +1,5 @@
+- name: Downloading and installing logging agent
+  shell:
+    cmd: |
+      curl -sSO https://dl.google.com/cloudagents/install-logging-agent.sh
+      bash install-logging-agent.sh

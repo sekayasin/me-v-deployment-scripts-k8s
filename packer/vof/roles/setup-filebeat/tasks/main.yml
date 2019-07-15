@@ -1,0 +1,23 @@
+- name: create certs directory
+  file:
+    path: /etc/pki/tls/certs
+    state: directory
+
+- name: copy logstash certificate from the gcp bucket
+  command: 'sudo gsutil cp gs://{{ bucket_name }}/elk-ssl/logstash-forwarder.crt /etc/pki/tls/certs/logstash-forwarder.crt'
+
+- name: delete filebeat.yml
+  file:
+    path: /etc/filebeat/filebeat.yml
+    state: absent
+
+- name: Copy filebeat configuration
+  copy:
+    src: templates/filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+
+- name: restart and enable filebeat
+  systemd:
+    state: restarted
+    name: filebeat
+    enabled: yes
